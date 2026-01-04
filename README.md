@@ -1,54 +1,52 @@
+# jorgemendoza.io
 
-# 👋 Hi, I'm Jorge Mendoza Rivilla
+Personal website for Jorge Mendoza built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**. The site is bilingual (Spanish default, English at `/en`), SEO-friendly, and ready for static export/deployment.
 
-Welcome to my personal space. I'm a **Data & Analytics professional** with a strong foundation in **Data Engineering, AI, and Technical Leadership**. I help teams and companies turn data into decisions that drive impact.
+## Features
+- Minimalist layout with palette: background `#F5F5F7`, text `#212429`, headings `#000000`, accent `#1F7AE0`.
+- Sections: Home, About, Work (logo strip + experience cards), Writing (Substack feed), Contact.
+- Spanish and English routes: `/`, `/about`, `/work`, `/writing`, `/contact` and `/en` equivalents.
+- SEO: metadata per page, OpenGraph/Twitter cards, canonical + language alternates, `sitemap.xml`, `robots.txt`.
+- Static export configured (`output: "export"`, unoptimized images for portability).
 
----
+## Getting started
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+2. **Run dev server**
+   ```bash
+   npm run dev
+   ```
+3. **Lint**
+   ```bash
+   npm run lint
+   ```
+4. **Build**
+   ```bash
+   npm run build
+   ```
+5. **Static export** (outputs to `/out`)
+   ```bash
+   npm run export
+   ```
 
-## 🚀 What I bring to the table
+## Content & configuration
+- **Profile photo**: replace `public/profile.svg` with a 1:1 portrait (SVG or static image). Update the path if you prefer a JPG/PNG.
+- **Client logos**: replace SVG placeholders in `public/logos/` (xtrim.svg, mapfre.svg, claro.svg, righttek.svg). Maintain grayscale for consistency.
+- **Substack feed**: update `FEED_URL` in `lib/rss.ts` if the Substack URL changes.
+- **Social/contact links**: update constants in `app/contact/page.tsx` and `app/en/contact/page.tsx`.
+- **Copy**: bilingual text lives in `lib/content.ts`.
 
-- 📊 **Business-driven Analytics** – turning data into actionable insights.
-- 🧱 **Modern Data Engineering** – building robust, scalable data pipelines.
-- 🤖 **Practical AI** – integrating LLMs and automation into business workflows.
-- 👥 **Technical Leadership** – leading high-performing, purpose-driven teams.
+## Deployment (S3 + CloudFront)
+1. Run `npm run export` to generate the static site in `/out`.
+2. Sync `/out` to an S3 bucket configured for static hosting (ensure `index.html` + `404.html`).
+3. Set appropriate cache headers (e.g., long-lived for assets, shorter for HTML if desired).
+4. Put CloudFront in front of the bucket with the S3 origin. Invalidate `/sitemap.xml`, `/robots.txt`, and HTML paths after each deploy.
 
----
+## Localization notes
+- Spanish is the default locale. English pages live under `/en`. Navigation and metadata use the same copy source to keep both locales aligned.
 
-## 👨‍💻 Tech Stack Highlights
-
-- **Languages**: Python, SQL, Java, PHP.
-- **APIs**: Rest, SOAP.
-- **Data Tools**: Databricks, MongoDB, PostgreSQL, PowerBI.
-- **AI & LLMs**: LangChain, OpenAI API, RAG pipelines, TensorFlow, scikit-learn.
-- **DevOps**: Git.
-
----
-
-## 💼 Let's work together
-
-- 🔍 **Hiring teams** – I'm open to **remote roles** in data leadership, platform architecture, or applied AI.
-- 🤝 **Upwork clients** – I can help you:
-  - Design your data stack from scratch
-  - Automate reporting and insights
-  - Build MVPs for AI/data-driven products
-  - Set up dashboards and data flows for decision-making
-
----
-
-## 📬 Get in touch
-
-- 📧 **Email**: ai.jorgemr@gmail.com  
-- 🔗 **LinkedIn**: [linkedin.com/in/aijorgemendoza](https://linkedin.com/in/aijorgemendoza)  
-- 💻 **GitHub**: [github.com/jorgemrai](https://github.com/jorgemrai)  
-- 🌍 **Upwork**: [upwork.com/freelancers/jorgemendoza](https://www.upwork.com/freelancers/~01cb2c3dd7e414e5c9)
-
----
-
-## 🧠 Content & Side Projects
-
-- 📰 [Medium Blog](https://medium.com/@jorgemendozarivilla) – articles on data, football analytics. 
-- 🛠️ [Personal Projects](https://github.com/jorgemrai?tab=repositories)
-
----
-
-Thanks for stopping by — if anything here resonates with you, feel free to connect!
+## Troubleshooting
+- **Dependency installation**: ensure outbound npm access/proxy settings allow fetching from the registry.
+- **Static export**: images are marked `unoptimized`; no additional image optimization service is required for deployment.
